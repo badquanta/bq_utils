@@ -6,13 +6,13 @@
  */
 
 #include "XXXXXXXXXXXX.h"
-#include "../util/bqdoctest.hpp"
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <doctest/doctest.h>
 namespace bq {
 
-TEST_CASE("TODO: Window_test")
-{ 
-  CHECK(true)
-  ;
+TEST_CASE("TODO: XXXXXXXXXXXX_test")
+{
+  CHECK(false);
 }
 
 }

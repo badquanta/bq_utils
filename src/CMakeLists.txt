@@ -1,17 +1,16 @@
-# 
 add_library(bq__XXXXXXXXXXXX
 	XXXXXXXXXXXX.h
 	XXXXXXXXXXXX.cpp	
 )
-#target_include_directories
-#Add include directories to a target.
-	#- target_include_directories(<target> [SYSTEM] [BEFORE] <INTERFACE|PUBLIC|PRIVATE> 
-#	 [items1...] [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
-	#- target_include_directories(mylib PUBLIC $<BUILD_INTERFACE:$
-#	 {CMAKE_CURRENT_SOURCE_DIR}/include/mylib> $<INSTALL_INTERFACE:include/mylib> # <prefix>/
-	 #include/mylib )
-# ** [ ] TODO: Review src target_include_directories
-target_include_directories(bq_XXXXXXXXXXXX PUBLIC ./ $<INSTALL_INTERFACE:include/bq/XXXXXXXXXXXX)
-#
-# ** [ ] TODO: Review src link_libraries
-#target_link_libraries(modern_library PRIVATE Boost::boost)
+foreach(X 
+	XXXXXXXXXXXX
+)
+	message(STATUS "ADDING ${X}_test")
+	
+	add_executable("${X}_test" "${X}_test.cpp" "${source_dir}")
+	target_include_directories("${X}_test" PUBLIC "${DOCTEST_INCLUDE_DIR}")
+
+	#target_link_libraries("${X}_test" PUBLIC bqpd)	
+	#target_link_libraries("${X}_test" PRIVATE doctest::doctest)
+	add_test("${X}_test" "${X}_test")
+endforeach()
