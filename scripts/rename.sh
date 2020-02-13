@@ -26,7 +26,7 @@ for i in $ALL_FILES; do
         RESULT=`grep -e "${PATTERN}" $i`
         if [[ $? == 0 ]]; then
             echo "Need to rename strings in $i";
-            SEDEDIT="sed s/${PATTERN}/$1/g $i > $i"
+            SEDEDIT="sed -i s/${PATTERN}/$1/g $i"
             echo "SEDEDIT = ${SEDEDIT}"
             ${SEDEDIT}
         fi
