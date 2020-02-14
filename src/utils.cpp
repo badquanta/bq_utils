@@ -1,20 +1,20 @@
 /*
- * XXXXXXXXXXXX.cpp
+ * utils.cpp
  *
  *  Created on: Feb 13, 2020
  *      Author: badquanta
  */
 
-#include "XXXXXXXXXXXX.h"
+#include "utils.h"
 
 namespace bq {
   
-  XXXXXXXXXXXX::XXXXXXXXXXXX() {
+  utils::utils() {
     // TODO Auto-generated constructor stub
     
   }
   
-  XXXXXXXXXXXX::~XXXXXXXXXXXX() {
+  utils::~utils() {
     // TODO Auto-generated destructor stub
   }
 

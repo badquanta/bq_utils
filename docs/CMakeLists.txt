@@ -63,7 +63,7 @@ doxygen_add_docs(documentation ./ README.md
 #	 {CMAKE_CURRENT_SOURCE_DIR}/include/mylib> $<INSTALL_INTERFACE:include/mylib> # <prefix>/
 	 #include/mylib )
 # ** [ ] TODO: Review src target_include_directories
-#target_include_directories(bq_XXXXXXXXXXXX PUBLIC ./ $<INSTALL_INTERFACE:include/bq/XXXXXXXXXXXX)
+#target_include_directories(bq_utils PUBLIC ./ $<INSTALL_INTERFACE:include/bq/utils)
 #
 # ** [ ] TODO: Review src link_libraries
 #target_link_libraries(modern_li

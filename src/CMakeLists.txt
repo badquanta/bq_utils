@@ -1,15 +1,19 @@
-add_library(bq__XXXXXXXXXXXX
-	XXXXXXXXXXXX.h
-	XXXXXXXXXXXX.cpp	
+add_library(bq__utils
+	utils.h
+	utils.cpp
+	WeakPtrCache.hpp
+	WeakPtrCache.cpp
 )
 foreach(X 
-	XXXXXXXXXXXX
+	utils
+	WeakPtrCache
 )
-	message(STATUS "ADDING ${X}_test")
+	message(STATUS "ADDING ${X}_test INCLUDING ${DOCTEST_INCLUDE_DIR}")
 	
-	add_executable("${X}_test" "${X}_test.cpp" "${source_dir}")
+	add_executable("${X}_test" "${X}_test.cpp")
+	add_dependencies("${X}_test" doctest)
 	target_include_directories("${X}_test" PUBLIC "${DOCTEST_INCLUDE_DIR}")
-
+	
 	#target_link_libraries("${X}_test" PUBLIC bqpd)	
 	#target_link_libraries("${X}_test" PRIVATE doctest::doctest)
 	add_test("${X}_test" "${X}_test")
