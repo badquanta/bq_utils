@@ -94,5 +94,5 @@ install(TARGETS bq__utils
 	PUBLIC_HEADER ${BQ__XXXXXXXXXX_PUBLIC_INCLUDE_DIRECTORIES}
 )
 
-
+target_include_directories(bq__utils PUBLIC src)
 

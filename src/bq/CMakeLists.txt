@@ -1,6 +1,6 @@
 add_library(bq__utils STATIC	
 	WeakPtrCache.cpp utils.cpp	
-	PUBLIC utils.h WeakPtrCache.hpp
+	utils.h WeakPtrCache.hpp
 	
 )
 foreach(X 
