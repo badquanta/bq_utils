@@ -88,8 +88,8 @@ add_subdirectory(src)
 #add_custom_target(res-data ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/res/")
 
 
-install(TARGETS bq__XXXXXXXXXXXX	 
-#	LIBRARY bq__XXXXXXXXXXXX
+install(TARGETS bq__utils	 
+#	LIBRARY bq__utils
 	DESTINATION bq_utils
 	PUBLIC_HEADER ${BQ__XXXXXXXXXX_PUBLIC_INCLUDE_DIRECTORIES}
 )
