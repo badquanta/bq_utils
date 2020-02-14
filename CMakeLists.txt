@@ -2,9 +2,9 @@
 cmake_minimum_required (VERSION 3.13) 
 # Prepare doctest for other targets to use
 
-# * [ ] TODO: rename bq__XXXXXXXXXXXX 
-project(bq__XXXXXXXXXXXX
-	# * [ ] TODO: reversion bq__XXXXXXXXXXXX
+# * [ ] TODO: rename bq_XXXXXXXXXXXX 
+project(bq_XXXXXXXXXXXX
+	# * [ ] TODO: reversion bq_XXXXXXXXXXXX
 	VERSION "0.0.0"
 )
 
@@ -34,7 +34,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     #set(CMAKE_CXX_EXTENSIONS OFF)
 	# * [ ] TODO: review CXX_STANDARD 20
 	set(CMAKE_CXX_STANDARD 20)
-	# @note: Put cmake modules in `<bq__XXXXXXXXXXXX_ROOT>/scripts/
+	# @note: Put cmake modules in `<bq_XXXXXXXXXXXX_ROOT>/scripts/
 	set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/scripts/")
 	#	
 	set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++17 -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
@@ -88,10 +88,10 @@ add_subdirectory(src)
 #add_custom_target(res-data ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/res/")
 
 
-install(TARGETS bq__XXXXXXXXXXXX	 
-#	LIBRARY bq__XXXXXXXXXXXX
+install(TARGETS bq_XXXXXXXXXXXX	 
+#	LIBRARY bq_XXXXXXXXXXXX
 	DESTINATION bq_utils
-	PUBLIC_HEADER ${BQ__XXXXXXXXXX_PUBLIC_INCLUDE_DIRECTORIES}
+	PUBLIC_HEADER ${bq_XXXXXXXXXX_PUBLIC_INCLUDE_DIRECTORIES}
 )
 
 
