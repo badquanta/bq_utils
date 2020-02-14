@@ -10,7 +10,9 @@ foreach(X
 )
 	message(STATUS "ADDING ${X}_test INCLUDING ${DOCTEST_INCLUDE_DIR}")
 	
+
 	add_executable("${X}_test" "${X}_test.cpp")
+
 	add_dependencies("${X}_test" doctest)
 	target_include_directories("${X}_test" PUBLIC "${DOCTEST_INCLUDE_DIR}")
 	
