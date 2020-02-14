@@ -1,8 +1,7 @@
-add_library(bq__utils
-	utils.h
-	utils.cpp
-	WeakPtrCache.hpp
-	WeakPtrCache.cpp
+add_library(bq__utils	
+	WeakPtrCache.cpp utils.cpp
+	PUBLIC_HEADER utils.h WeakPtrCache.hpp
+	
 )
 foreach(X 
 	utils
