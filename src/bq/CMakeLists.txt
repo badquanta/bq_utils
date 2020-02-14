@@ -1,4 +1,4 @@
-add_library(bq__XXXXXXXXXXXX
+add_library(bq__XXXXXXXXXXXX STATIC
 	XXXXXXXXXXXX.h
 	XXXXXXXXXXXX.cpp	
 )
