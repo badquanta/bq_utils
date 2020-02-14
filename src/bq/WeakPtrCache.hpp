@@ -14,7 +14,7 @@
 namespace bq {
 #define BQPD_WEAKPTR_PAIR <class Key, class base>
   template<class base,typename ...Args>
-  std::shared_ptr<base> stdMakeShared(Args...args){
+  std::shared_ptr<base> stdMakeShared(Args&...args){
       return std::make_shared<base>(args...);
   }
   /**
@@ -43,8 +43,8 @@ namespace bq {
         if(!sp) fCache[key] = sp = makeSharedFunc(args...);
         return sp;
       }
-      shared_ptr operator()(Key key){
-        return get_sptr(key);
+      shared_ptr operator()(Key key, Args...args){
+        return get_sptr(key,args...);
       }
       int countAlive(){
         int count = 0;
