@@ -14,7 +14,7 @@
 namespace bq {
 #define BQPD_WEAKPTR_PAIR <class Key, class base>
   template<class base,typename ...Args>
-  std::shared_ptr<base> stdMakeShared(Args&...args){
+  std::shared_ptr<base> stdMakeShared(Args...args){
       return std::make_shared<base>(args...);
   }
   /**

@@ -1,4 +1,4 @@
-add_library(bq__utils STATIC	
+add_library(bq_utils STATIC	
 	WeakPtrCache.cpp utils.cpp	
 	utils.h WeakPtrCache.hpp
 	
