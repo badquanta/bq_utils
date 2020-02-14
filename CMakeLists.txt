@@ -86,3 +86,13 @@ add_subdirectory(src)
 #endif()
 # files are only copied if a target depends on them
 #add_custom_target(res-data ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/res/")
+
+
+install(TARGETS bq__XXXXXXXXXXXX	 
+#	LIBRARY bq__XXXXXXXXXXXX
+	DESTINATION bq_utils
+	PUBLIC_HEADER ${BQ__XXXXXXXXXX_PUBLIC_INCLUDE_DIRECTORIES}
+)
+
+
+

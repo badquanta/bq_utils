@@ -8,7 +8,7 @@ foreach(X
 	utils
 	WeakPtrCache
 )
-	message(STATUS "ADDING ${X}_test INCLUDING ${DOCTEST_INCLUDE_DIR}")
+	message(STATUS "ADDING ${X}_test")
 	
 
 	add_executable("${X}_test" "${X}_test.cpp")
