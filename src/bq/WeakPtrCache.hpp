@@ -12,22 +12,30 @@
 namespace bq {
 #define BQPD_WEAKPTR_PAIR <class Key, class Base>
   /**
-   * This will just call `std::make_shared` with the specified ...Args
+   * This will just call `std::make_shared` with the specified ...Defaults
    */
-  template<class Key, class Base, typename ...Args>
-  std::shared_ptr<Base> stdMakeShared(Key k, Args ...args) {
-    return std::make_shared<Base>(args...);
+  template<class Key, class Base, typename ...Defaults>
+  std::shared_ptr<Base> stdOnCacheEnsure(Key,
+      Defaults ...defaults) {
+    return std::make_shared<Base>(defaults...);
   }
   /** This will call `std::make_shared<Base>(Key) **/
   template<class Key, class Base>
-  std::shared_ptr<Base> stdMakeSharedKey(Key k){
+  std::shared_ptr<Base> stdOnCacheMissKey(Key k) {
     return std::make_shared<Base>(k);
   }
+  /**
+   *
+   */
+  template<class Key, class Base,typename ...Defaults>
+    std::shared_ptr<Base> stdOnCacheMissDefault(Key , Defaults...) {
+      return std::make_shared<Base>();
+    }
   /**
    * This WeakPtrCache indexes via a `Key` instances of `std::shared_ptr` as a `map` of
    * `std::weak_ptr`s.
    * `Key` refers to the symbol by which instances are referred to; other than pointers. */
-  template<class Key, class Base, typename ...Args>
+  template<class Key, class Base, typename ...Defaults>
   class WeakPtrCache {
     public:
       /** std::shared_ptr, Using the `Base` specified **/
@@ -36,10 +44,10 @@ namespace bq {
       typedef std::weak_ptr<Base> weak_ptr;
       /** std::map of key->weak_ptr pairs. **/
       typedef std::map<Key, weak_ptr> map;
-      typedef std::function<shared_ptr(Key, Args...)> MakeInstance_f;
-      typedef std::function<shared_ptr(Key)> MakeDefault_f;
-      MakeInstance_f makeInstance;
-      MakeDefault_f makeDefault;
+      typedef std::function<shared_ptr(Key, Defaults...)> OnCacheEnsure;
+      typedef std::function<shared_ptr(Key)> OnCacheMiss;
+      OnCacheEnsure onCacheEnsure;
+      OnCacheMiss onCacheMiss;
     protected: // internal std::weak_ptr map
       map fCache;
       std::mutex mutex;
@@ -52,23 +60,24 @@ namespace bq {
        * it will be used with `ensure_sptr` to construct
        * instances for cache misses.
        */
-      WeakPtrCache(MakeInstance_f mi = nullptr, MakeDefault_f md =
-          nullptr)
-          : makeInstance { mi }, makeDefault { md } {
+      WeakPtrCache(OnCacheMiss md = nullptr,
+          OnCacheEnsure mi = nullptr)
+          : onCacheEnsure { mi }, onCacheMiss { md } {
 
       }
       /**
        * Ensures the cache has an instance for key,
        * if it does it returns that existing instance.
        * if it does not it will try to call makeInstance with
-       * `key` and `Args...args`; then store that new instance
+       * `key` and `Defaults...defaults`; then store that new instance
        * at `key` and return that new instance's `std::shared_ptr`.
        */
-      shared_ptr ensure_sptr(Key key, Args ...args) {
+      shared_ptr ensure_sptr(Key key, Defaults ...defaults) {
         std::lock_guard<std::mutex> hold(mutex);
         auto sp = fCache[key].lock();
-        if ((!sp) && (makeInstance != nullptr)) fCache[key] = sp =
-            makeInstance(key, args...);
+        if ((!sp) && (onCacheEnsure != nullptr)) fCache[key] =
+            sp = onCacheEnsure(key, defaults...);
+        if ((!sp) && (onCacheMiss != nullptr)) fCache[key] = sp = onCacheMiss(key);
         return sp;
       }
       /**
@@ -79,8 +88,8 @@ namespace bq {
       shared_ptr get_sptr(Key key) {
         std::lock_guard<std::mutex> hold(mutex);
         auto sp = fCache[key].lock();
-        if ((!sp) && (makeDefault != nullptr)) fCache[key] = sp =
-            makeDefault(key);
+        if ((!sp) && (onCacheMiss != nullptr)) fCache[key] = sp =
+            onCacheMiss(key);
         return sp;
       }
       /**

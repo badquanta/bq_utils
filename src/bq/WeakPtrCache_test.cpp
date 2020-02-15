@@ -16,7 +16,7 @@ namespace bq {
         float complex=0;
     };
     typedef WeakPtrCache<int, TempStruct> TempStructCache;
-    TempStructCache cache1(stdMakeShared<int, TempStruct>);
+    TempStructCache cache1(stdOnCacheMissDefault<int, TempStruct>);
     CHECK_EQ(cache1.countAlive(),0);
     TempStructCache::shared_ptr ptr = cache1.ensure_sptr(22);
     CHECK_EQ(cache1.countAlive(),1);
@@ -45,7 +45,13 @@ namespace bq {
     };
 
     typedef WeakPtrCache<int, MyClass, float> MyClassCache;
-    MyClassCache mcc(stdMakeShared<int, MyClass, float>);
+    /**
+     * The first nullptr instructs mcc NOT to construct default instances
+     * on `get_sptr` cache misses.
+     * The second parameter is a function that passes float to the constructor
+     * of my class when `ensure_sptr` encounters a nullptr
+     */
+    MyClassCache mcc(nullptr, stdOnCacheEnsure<int, MyClass, float>);
     CHECK_EQ(mcc.countAlive(),0);
     MyClassCache::shared_ptr ptr1 = mcc.get_sptr(60);
     CHECK_EQ(nullptr, ptr1);
