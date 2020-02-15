@@ -1,3 +1,4 @@
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/scripts/")
 # Only do these if this is the main project, and not if it is included through add_subdirectory
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     message("SETTING UP ${PROJECT_NAME}")
@@ -7,7 +8,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 	# * [ ] TODO: review CXX_STANDARD 20
 	set(CMAKE_CXX_STANDARD 20)
 	# @note: Put cmake modules in `<bq_XXXXXXXXXXXX_ROOT>/scripts/
-	set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/scripts/")
+	
 	#	
 	set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++17 -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
 	# * [ ] TODO: review EXE_LINKER_FLAGS 
