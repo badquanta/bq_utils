@@ -1,10 +1,8 @@
 /*
- * SharedPtrCache.hpp
- *
+ * WeakPtrCache
  *  Created on: Feb 7, 2020
  *      Author: badquanta
  */
-
 #ifndef WEAKPTRCACHE_HPP_
 #define WEAKPTRCACHE_HPP_
 #include <memory>
@@ -12,39 +10,57 @@
 #include <mutex>
 #include <functional>
 namespace bq {
-#define BQPD_WEAKPTR_PAIR <class Key, class base>
-  template<class base,typename ...Args>
-  std::shared_ptr<base> stdMakeShared(Args...args){
-      return std::make_shared<base>(args...);
+#define BQPD_WEAKPTR_PAIR <class Key, class Base>
+  /**
+   * This will just call `std::make_shared` with the specified ...Args
+   */
+  template<class Key, class Base, typename ...Args>
+  std::shared_ptr<Base> stdMakeShared(Key k, Args...args){
+      return std::make_shared<Base>(args...);
   }
   /**
-   * `Key` refers to the symbol by which instances are referred to; other than pointers.
-   */
-  template<class Key, class base, typename ...Args>
+   * This WeakPtrCache indexes via a `Key` instances of `std::shared_ptr` as a `map` of
+   * `std::weak_ptr`s.
+   * `Key` refers to the symbol by which instances are referred to; other than pointers. */
+  template<class Key, class Base, typename ...Args>
   class WeakPtrCache {
     public:
-      typedef std::shared_ptr<base> shared_ptr;
-      typedef std::weak_ptr<base> weak_ptr;
+      /** std::shared_ptr, Using the `Base` specified **/
+      typedef std::shared_ptr<Base> shared_ptr;
+      /** std::weakptr, using the `Base` specified **/
+      typedef std::weak_ptr<Base> weak_ptr;
+      /** std::map of key->weak_ptr pairs. **/
       typedef std::map<Key, weak_ptr> map;
-      typedef std::function<shared_ptr(Args...)> key_make_shared_f;
-      key_make_shared_f makeSharedFunc;
+      typedef std::function<shared_ptr(Key, Args...)> MakeInstance_f;
+      MakeInstance_f makeInstanceFunc;
     protected:// internal std::weak_ptr map
       map fCache;
       std::mutex mutex;
 
 
     public:
-      WeakPtrCache(key_make_shared_f f):makeSharedFunc{f}{
+      /**
+       * Constructs a "Weak Pointer Cache"
+       * Template argument will be the map's key.
+       * If a function is given to this constructor;
+       * it will be used with `ensure_sptr` to construct
+       * instances for cache misses.
+       */
+      WeakPtrCache(MakeInstance_f f):makeInstanceFunc{f}{
 
       }
-      shared_ptr get_sptr(Key key, Args...args){
+      shared_ptr ensure_sptr(Key key, Args...args){
         std::lock_guard<std::mutex> hold(mutex);
         auto sp = fCache[key].lock();
-        if(!sp) fCache[key] = sp = makeSharedFunc(args...);
+        if((!sp)&&(makeInstanceFunc!=nullptr)) fCache[key] = sp = makeInstanceFunc(key, args...);
         return sp;
       }
-      shared_ptr operator()(Key key, Args...args){
-        return get_sptr(key,args...);
+      shared_ptr get_sptr(Key key){
+        std::lock_guard<std::mutex> hold(mutex);
+        return fCache[key].lock();
+      }
+      shared_ptr operator()(Key key){
+        return get_sptr(key);
       }
       int countAlive(){
         int count = 0;
@@ -60,9 +76,9 @@ namespace bq {
       WeakPtrCache& operator=(const WeakPtrCache &other)=delete;
       WeakPtrCache& operator=(WeakPtrCache &&other)=delete;
   };
-  //template <class Key, class base> std::mutex WeakPtrCache<Key,base>::mutex;
-  //template <class Key, class base> std::map<Key,std::weak_ptr<base>> WeakPtrCache<Key,base>::fCache;
-  //template <class Key, class base> std::function<std::shared_ptr<base>(Key)> WeakPtrCache<Key,base>::makeSharedFunc;
+  //template <class Key, class Base> std::mutex WeakPtrCache<Key,Base>::mutex;
+  //template <class Key, class Base> std::map<Key,std::weak_ptr<Base>> WeakPtrCache<Key,Base>::fCache;
+  //template <class Key, class Base> std::function<std::shared_ptr<Base>(Key)> WeakPtrCache<Key,Base>::makeInstanceFunc;
 } /* namespace bq */
 
 #endif /* WEAKPTRCACHE_HPP_ */

@@ -1,7 +1,7 @@
 
 # https://cmake.org/cmake/help/v3.9/module/FindDoxygen.html
 # http://www.doxygen.nl/manual/config.html
-doxygen_add_docs(documentation ./ README.md
+doxygen_add_docs(documentation ../src ../README.md
 	COMMENT "Generate documentation"
 	DOXYGEN_ALWAYS_DETAILED_SEC YES
 	DOXYGEN_QUIET YES

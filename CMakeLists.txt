@@ -16,7 +16,7 @@ ExternalProject_Add(
     PREFIX ${CMAKE_BINARY_DIR}/lib/doctest
     GIT_REPOSITORY https://github.com/onqtam/doctest.git
     TIMEOUT 10
-    UPDATE_COMMAND ${GIT_EXECUTABLE} pull
+    UPDATE_COMMAND "" #${GIT_EXECUTABLE} pull
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
