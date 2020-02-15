@@ -5,6 +5,7 @@ project(bq_XXXXXXXXXXXX
 	# * [ ] TODO: reversion bq_XXXXXXXXXXXX
 	VERSION "0.0.0"
 )
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/scripts)
 # Externals & Settings 
 include("scripts/external_projects.cmake")
 include("scripts/project_settings.cmake")
