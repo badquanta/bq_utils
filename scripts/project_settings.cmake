@@ -4,26 +4,27 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   # * [ ] TODO: review CXX_STANDARD 17
   set(CMAKE_CXX_STANDARD 17)
   message("CMAKE_CXX_STANDARD IS ${CMAKE_CXX_STANDARD}")
-	#	
-	#set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++17 -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
-	# * [ ] TODO: review EXE_LINKER_FLAGS 
-	#set(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
-	# * [ ] TODO: include_directories(ex: extern/glm)
+    set(default_build_type "Release")
+    if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+      message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
+      set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
+          STRING "Choose the type of build." FORCE)
+      # Set the possible values of build type for cmake-gui
+      set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+        "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+    endif()
     # Let's nicely support folders in IDE's
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
     enable_testing( )
     # Testing only available if this is the main app
-    # Note this needs to be done in the main CMakeLists
-    # since it calls enable_testing, which must be in the
-    # main CMakeLists.
     include(CTest)
+    # Packaging only available if this is the main app
     include(CPack)
-    #
     # Docs only available if this is the main app
     find_package(Doxygen)
     #
     if(Doxygen_FOUND)
-    	#
+    # (this will be run from the main project directory, so ./doc, not ./scripts/doc)
 		add_subdirectory(docs)
 		#
     else()
