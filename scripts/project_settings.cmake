@@ -16,7 +16,8 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     # Note this needs to be done in the main CMakeLists
     # since it calls enable_testing, which must be in the
     # main CMakeLists.
-    #include(CTest)
+    include(CTest)
+    include(CPack)
     #
     # Docs only available if this is the main app
     find_package(Doxygen)
