@@ -1,7 +1,7 @@
 
 # https://cmake.org/cmake/help/v3.9/module/FindDoxygen.html
 # http://www.doxygen.nl/manual/config.html
-doxygen_add_docs(documentation ./ README.md
+doxygen_add_docs(documentation ../src README.md
 	COMMENT "Generate documentation"
 	DOXYGEN_ALWAYS_DETAILED_SEC YES
 	DOXYGEN_QUIET YES
@@ -63,7 +63,7 @@ doxygen_add_docs(documentation ./ README.md
 #	 {CMAKE_CURRENT_SOURCE_DIR}/include/mylib> $<INSTALL_INTERFACE:include/mylib> # <prefix>/
 	 #include/mylib )
 # ** [ ] TODO: Review src target_include_directories
-#target_include_directories(bq_utils PUBLIC ./ $<INSTALL_INTERFACE:include/bq/utils)
+#target_include_directories(bq_sdl2 PUBLIC ./ $<INSTALL_INTERFACE:include/bq/sdl2)
 #
 # ** [ ] TODO: Review src link_libraries
 #target_link_libraries(modern_li
