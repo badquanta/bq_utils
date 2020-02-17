@@ -5,7 +5,7 @@
  *      Author: badquanta
  */
 
-#include "XXXXXXXXXXXX.h"
+#include "XXXXXXXXXXXX.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest/doctest.h>
 namespace bq {
