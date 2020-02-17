@@ -1,11 +1,10 @@
 # PROJECT/CMakeList.txt
 # - started in bq_TEMPLATE++
 # - renamed for bq_utils
-=======
 cmake_minimum_required (VERSION 3.13) 
 # my projects start with bq_ to ensure I don't collide with others.
 # PROJECT_SHORTNAME refers to the part that follows `bq_...`.
-set(PROJECT_SHORTNAME bq_utils)
+set(PROJECT_SHORTNAME utils)
 ##########
 project("bq_${PROJECT_SHORTNAME}"
 	VERSION "0.0.1"

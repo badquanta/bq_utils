@@ -4,6 +4,6 @@
 # if there are sub-directories, simply `add_subdirectory(xyz)`
 # and repeat the pattern.
 ##################
-TRINITY(WeakPtrCache.cpp)
-TRINITY(utils.cpp)
+TRINITY(WeakPtrCache)
+TRINITY(utils)
 
