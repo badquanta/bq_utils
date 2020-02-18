@@ -41,7 +41,7 @@ install(TARGETS ${PROJECT_NAME}
 	PUBLIC_HEADER	DESTINATION 	include/bq/${PROJECT_SHORTNAME}
 )
 # Install the library public header files, which are all *.hpp files.
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/src/ DESTINATION include/bq/${SHORTNAME} FILES_MATCHING PATTERN "*.hpp")
+INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/src/ DESTINATION include/bq/${PROJECT_SHORTNAME} FILES_MATCHING PATTERN "*.hpp")
 # Install the library documentation
 install(DIRECTORY ${CMAKE_BINARY_DIR}/docs/ DESTINATION docs/ FILES_MATCHING PATTERN "*.*")
 # Add needed include directories.
