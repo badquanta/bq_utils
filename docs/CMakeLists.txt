@@ -63,6 +63,6 @@ set( DOXYGEN_INTERACTIVE_SVG 		YES )
 set( DOXYGEN_BUILTIN_STL_SUPPORT 	YES )
 # https://cmake.org/cmake/help/v3.9/module/FindDoxygen.html
 # http://www.doxygen.nl/manual/config.html
-doxygen_add_docs(documentation ALL ../src ../README.md ../LICENSE)
+doxygen_add_docs(documentation ../src ../README.md ../LICENSE)
 #add_subdirectory(examples)
 
