@@ -44,6 +44,10 @@ install(TARGETS ${PROJECT_NAME}
 INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/src/ DESTINATION include/bq/${PROJECT_SHORTNAME} FILES_MATCHING PATTERN "*.hpp")
 # Install the library documentation
 install(DIRECTORY ${CMAKE_BINARY_DIR}/docs/ DESTINATION docs/ FILES_MATCHING PATTERN "*.*")
+# Install the LICENSE/README/WELCOME (for packaging)
+#INSTALL(FILE LICENSE DESTINATION LICENSE)
+#INSTALL(FILE README.md DESTINATION README.md)
+
 # Add needed include directories.
 # Use the correct include directories; dpending on the interface?
 target_include_directories(${PROJECT_NAME} 
